@@ -1,6 +1,0 @@
-name: SavageMenuExample
-main: ru.zenegix.menu.example.ExamplePlugin
-author: ZENEGIX
-version: 1.0
-commands:
-  menu:
