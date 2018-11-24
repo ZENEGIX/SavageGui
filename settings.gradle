@@ -1,0 +1,6 @@
+rootProject.name = 'SavageGui'
+include 'core'
+include 'bukkit'
+include 'example'
+include 'seamless-opening'
+

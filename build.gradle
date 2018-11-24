@@ -1,0 +1,17 @@
+group 'ru.zenegix.menu'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    buildscript {
+        repositories {
+            jcenter()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+
+        dependencies {
+            classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+        }
+    }
+}
