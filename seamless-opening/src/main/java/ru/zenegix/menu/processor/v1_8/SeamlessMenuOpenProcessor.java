@@ -26,7 +26,6 @@ public class SeamlessMenuOpenProcessor extends AbstractSeamlessMenuOpenProcessor
 
         if (container != null) {
             if (player.activeContainer != null) {
-
                 CraftEventFactory.handleInventoryCloseEvent(player);
                 player.activeContainer.b(player);
             }
