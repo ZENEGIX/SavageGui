@@ -1,67 +1,44 @@
 package ru.zenegix.menu.template;
 
-import ru.zenegix.menu.item.MenuItem;
 import ru.zenegix.menu.session.MenuSession;
-import ru.zenegix.menu.title.MenuTitle;
-import ru.zenegix.menu.type.MenuType;
 import ru.zenegix.menu.window.MenuWindow;
 
 import java.util.*;
 
-public class SingleMenuTemplate implements MenuTemplate {
+public class SingleMenuTemplate extends AbstractMenuTemplate {
 
-    private final MenuWindow mainWindow;
+    private final MenuWindow rootWindow;
 
-    private final Map<String, MenuWindow> mainWindowAsMap;
+    private final Map<String, MenuWindow> rootWindowAsMap;
 
-    public SingleMenuTemplate(MenuWindow mainWindow) {
-        this.mainWindowAsMap = Collections.singletonMap(
+    public SingleMenuTemplate(MenuWindow rootWindow) {
+        this.rootWindowAsMap = Collections.singletonMap(
                 MenuTemplate.MAIN_WINDOW_ID,
-                this.mainWindow = mainWindow
+                this.rootWindow = rootWindow
         );
     }
 
     @Override
-    public MenuType getMenuType() {
-        return this.mainWindow.getMenuType();
-    }
-
-    @Override
-    public MenuTitle getTitle() {
-        return this.mainWindow.getTitle();
-    }
-
-    @Override
-    public List<MenuItem> getItems() {
-        return this.mainWindow.getItems();
-    }
-
-    @Override
-    public boolean canView(MenuSession menuSession) {
-        return this.mainWindow.canView(menuSession);
-    }
-
-    @Override
-    public boolean update() {
-        return this.mainWindow.update();
+    public MenuWindow getRootWindow() {
+        return this.rootWindow;
     }
 
     @Override
     public Map<String, MenuWindow> getAllWindows() {
-        return this.mainWindowAsMap;
+        return this.rootWindowAsMap;
     }
 
     @Override
     public Optional<MenuWindow> findWindow(String id) {
         return id.equalsIgnoreCase(MenuTemplate.MAIN_WINDOW_ID)
-                ? Optional.of(this.mainWindow)
+                ? Optional.of(this.rootWindow)
                 : Optional.empty();
     }
 
     @Override
     public Map<String, MenuWindow> getWindowsPerSession(MenuSession session) {
         return this.canView(session)
-                ? this.mainWindowAsMap
+                ? this.rootWindowAsMap
                 : Collections.emptyMap();
     }
 
@@ -77,15 +54,15 @@ public class SingleMenuTemplate implements MenuTemplate {
 
         SingleMenuTemplate that = (SingleMenuTemplate) o;
 
-        return Objects.equals(this.mainWindow, that.mainWindow) &&
-                Objects.equals(this.mainWindowAsMap, that.mainWindowAsMap);
+        return Objects.equals(this.rootWindow, that.rootWindow) &&
+                Objects.equals(this.rootWindowAsMap, that.rootWindowAsMap);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.mainWindow,
-                this.mainWindowAsMap
+                this.rootWindow,
+                this.rootWindowAsMap
         );
     }
 }

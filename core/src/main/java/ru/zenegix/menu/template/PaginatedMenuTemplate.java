@@ -1,28 +1,24 @@
 package ru.zenegix.menu.template;
 
-import ru.zenegix.menu.item.MenuItem;
-import ru.zenegix.menu.session.MenuSession;
-import ru.zenegix.menu.title.MenuTitle;
-import ru.zenegix.menu.type.MenuType;
 import ru.zenegix.menu.window.MenuWindow;
 
 import java.util.*;
 
-public class PaginatedMenuTemplate implements MenuTemplate {
+public class PaginatedMenuTemplate extends AbstractMenuTemplate {
 
-    private final MenuWindow mainWindow;
+    private final MenuWindow rootWindow;
 
     private final Map<String, MenuWindow> windows;
 
-    public PaginatedMenuTemplate(MenuWindow mainWindow) {
-        this(mainWindow, new HashMap<>());
+    public PaginatedMenuTemplate(MenuWindow rootWindow) {
+        this(rootWindow, new HashMap<>());
     }
 
-    public PaginatedMenuTemplate(MenuWindow mainWindow, Map<String, MenuWindow> windows) {
-        this.mainWindow = mainWindow;
+    public PaginatedMenuTemplate(MenuWindow rootWindow, Map<String, MenuWindow> windows) {
+        this.rootWindow = rootWindow;
         this.windows = windows;
 
-        this.windows.put(MenuTemplate.MAIN_WINDOW_ID, this.mainWindow);
+        this.windows.put(MenuTemplate.MAIN_WINDOW_ID, this.rootWindow);
     }
 
     @Override
@@ -31,51 +27,22 @@ public class PaginatedMenuTemplate implements MenuTemplate {
     }
 
     @Override
-    public Optional<MenuWindow> findWindow(String id) {
-        return Optional.ofNullable(this.windows.get(id));
+    public MenuWindow getRootWindow() {
+        return this.rootWindow;
     }
 
-    @Override
-    public MenuType getMenuType() {
-        return this.getMainWindow().getMenuType();
-    }
-
-    @Override
-    public MenuTitle getTitle() {
-        return this.getMainWindow().getTitle();
-    }
-
-    @Override
-    public List<MenuItem> getItems() {
-        return this.getMainWindow().getItems();
-    }
-
-    @Override
-    public boolean canView(MenuSession menuSession) {
-        return this.getMainWindow().canView(menuSession);
-    }
-
-    @Override
-    public boolean update() {
-        return this.getMainWindow().update();
-    }
-
-    public MenuWindow getMainWindow() {
-        return this.mainWindow;
-    }
-
-    public static Builder builder(MenuWindow mainWindow) {
-        return new Builder(mainWindow);
+    public static Builder builder(MenuWindow rootWindow) {
+        return new Builder(rootWindow);
     }
 
     public static class Builder {
 
-        private final MenuWindow mainWindow;
+        private final MenuWindow rootWindow;
 
         private final Map<String, MenuWindow> windows = new HashMap<>();
 
-        public Builder(MenuWindow mainWindow) {
-            this.mainWindow = mainWindow;
+        public Builder(MenuWindow rootWindow) {
+            this.rootWindow = rootWindow;
         }
 
         public Builder registerWindow(String id, MenuWindow window) {
@@ -85,7 +52,7 @@ public class PaginatedMenuTemplate implements MenuTemplate {
         }
 
         public PaginatedMenuTemplate build() {
-            return new PaginatedMenuTemplate(this.mainWindow, this.windows);
+            return new PaginatedMenuTemplate(this.rootWindow, this.windows);
         }
 
     }
