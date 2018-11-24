@@ -1,22 +1,4 @@
 apply plugin: "com.github.johnrengelman.shadow"
-apply plugin: 'java'
-
-group 'ru.zenegix.menu'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-
-    maven {
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
-
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
-}
 
 dependencies {
     compile project(':core')

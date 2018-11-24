@@ -1,23 +1,4 @@
 apply plugin: "com.github.johnrengelman.shadow"
-apply plugin: 'java'
-apply plugin: "maven-publish"
-
-group 'ru.zenegix.menu'
-version '1.2-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-
-    maven {
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
-
-    maven {
-        url 'https://oss.sonatype.org/content/repositories/snapshots'
-    }
-}
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
@@ -28,35 +9,3 @@ shadowJar {
 }
 
 build.dependsOn shadowJar
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId project.group
-            artifactId project.name.toLowerCase()
-            version project.version
-            from components.java
-        }
-    }
-
-    repositories {
-        mavenLocal()
-
-        if (project.hasProperty("publish_user") && project.hasProperty("publish_password")) {
-            maven {
-                if (project.hasProperty("publish_url")) {
-                    url "${publish_url}"
-                } else if (project.version.endsWith('-SNAPSHOT')) {
-                    url "https://repo.zenegix.ru/content/repositories/snapshots/"
-                } else {
-                    url "https://repo.zenegix.ru/content/repositories/releases/"
-                }
-
-                credentials {
-                    username "${publish_user}"
-                    password "${publish_password}"
-                }
-            }
-        }
-    }
-}

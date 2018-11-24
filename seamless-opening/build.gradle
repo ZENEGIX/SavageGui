@@ -1,16 +1,3 @@
-plugins {
-    id 'java'
-}
-
-group 'ru.zenegix.menu'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     compileOnly files("lib/Paper-1.12.2-b1574.jar", "lib/PaperSpigot-1.8.8.jar")
     compile project(':core')

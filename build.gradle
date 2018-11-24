@@ -1,7 +1,4 @@
-group 'ru.zenegix.menu'
-version '1.0-SNAPSHOT'
-
-allprojects {
+allprojects { project ->
     buildscript {
         repositories {
             jcenter()
@@ -12,6 +9,60 @@ allprojects {
 
         dependencies {
             classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+        }
+    }
+
+    repositories {
+        mavenCentral()
+
+        maven {
+            url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        }
+
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+
+    group 'ru.zenegix.menu'
+    version '1.3-SNAPSHOT'
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+
+    if (project.name == "core" || project.name == "seamless-opening") {
+        apply plugin: "maven-publish"
+
+        publishing {
+            publications {
+                maven(MavenPublication) {
+                    groupId project.group
+                    artifactId project.name.toLowerCase()
+                    version project.version
+                    from components.java
+                }
+            }
+
+            repositories {
+                mavenLocal()
+
+                if (project.hasProperty("publish_user") && project.hasProperty("publish_password")) {
+                    maven {
+                        if (project.hasProperty("publish_url")) {
+                            url "${publish_url}"
+                        } else if (project.version.endsWith('-SNAPSHOT')) {
+                            url "http://repo.zenegix.ru/content/repositories/snapshots/"
+                        } else {
+                            url "http://repo.zenegix.ru/content/repositories/releases/"
+                        }
+
+                        credentials {
+                            username "${publish_user}"
+                            password "${publish_password}"
+                        }
+                    }
+                }
+            }
         }
     }
 }
