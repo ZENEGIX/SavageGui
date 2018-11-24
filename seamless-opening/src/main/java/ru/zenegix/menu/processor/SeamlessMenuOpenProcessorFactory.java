@@ -10,14 +10,12 @@ public class SeamlessMenuOpenProcessorFactory {
     private static AbstractSeamlessMenuOpenProcessor currentVersion;
 
     public static AbstractSeamlessMenuOpenProcessor get(Plugin plugin) {
-        if (currentVersion == null) {
-            lazyInit(plugin);
-        }
-
-        return currentVersion;
+        return currentVersion == null
+                ? currentVersion = lazyInit(plugin)
+                : currentVersion;
     }
 
-    private static void lazyInit(Plugin plugin) {
+    private static AbstractSeamlessMenuOpenProcessor lazyInit(Plugin plugin) {
         try {
             Constructor<?> constructor;
             String name = Bukkit.getServer().getClass().getPackage().getName();
@@ -38,7 +36,7 @@ public class SeamlessMenuOpenProcessorFactory {
                 }
             }
 
-            currentVersion = (AbstractSeamlessMenuOpenProcessor) constructor.newInstance(plugin);
+            return (AbstractSeamlessMenuOpenProcessor) constructor.newInstance(plugin);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
