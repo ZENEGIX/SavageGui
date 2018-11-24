@@ -4,7 +4,7 @@ A powerful menu api for bukkit
 
 - Lightweight
 - Flexible
-- Support a seamless inventory open
+- Support a seamless inventory open [For 1.8 and 1.12 versions]
 - The ability to create an animated menu
 
 ### Integration
