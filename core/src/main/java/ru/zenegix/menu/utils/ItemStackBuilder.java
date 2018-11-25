@@ -62,11 +62,6 @@ public class ItemStackBuilder {
         return this;
     }
 
-    public ItemStackBuilder changeAmount(int change) {
-        this.amount = change;
-        return this;
-    }
-
     public ItemStackBuilder setAmount(int amount) {
         this.amount = amount;
         return this;
