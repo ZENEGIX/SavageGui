@@ -51,6 +51,10 @@ public class MenuWindowBuilder {
         return this;
     }
 
+    public MenuWindowBuilder setRows(int rows) {
+        return this.setSize(rows * 9);
+    }
+
     public MenuWindowBuilder setSize(int size) {
         return this.setType(MenuType.ofSize(size));
     }
