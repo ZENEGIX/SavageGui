@@ -8,9 +8,12 @@ public class MenuItemClick {
 
     private final MenuItem clicked;
 
-    public MenuItemClick(MenuSession menuSession, MenuItem clicked) {
+    private final int slot;
+
+    public MenuItemClick(MenuSession menuSession, MenuItem clicked, int slot) {
         this.menuSession = menuSession;
         this.clicked = clicked;
+        this.slot = slot;
     }
 
     public MenuSession getMenuSession() {
@@ -20,4 +23,9 @@ public class MenuItemClick {
     public MenuItem getClicked() {
         return this.clicked;
     }
+
+    public int getSlot() {
+        return slot;
+    }
+
 }

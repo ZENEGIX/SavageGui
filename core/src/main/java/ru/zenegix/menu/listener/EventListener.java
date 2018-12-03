@@ -45,7 +45,7 @@ public class EventListener implements Listener {
 
         menuSession.getItemByIndex(event.getRawSlot()).ifPresent(menuItem -> {
             if (menuItem.canView(menuSession)) {
-                menuItem.getClickHandler().accept(new MenuItemClick(menuSession, menuItem));
+                menuItem.getClickHandler().accept(new MenuItemClick(menuSession, menuItem, event.getRawSlot()));
             }
         });
     }
