@@ -3,8 +3,6 @@ package ru.zenegix.menu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import ru.zenegix.menu.animation.AnimateMenuStrategy;
-import ru.zenegix.menu.animation.SimpleAnimateMenuStrategy;
 import ru.zenegix.menu.listener.EventListener;
 import ru.zenegix.menu.processor.DefaultMenuOpenProcessor;
 import ru.zenegix.menu.processor.MenuOpenProcessor;
@@ -52,10 +50,6 @@ public class MenuManager {
 
     public void open(Player player, MenuTemplate menuTemplate, String windowId) {
         this.sessionResolver.getSessionByPlayer(player).open(menuTemplate, windowId);
-    }
-
-    public AnimateMenuStrategy createAnimateMenuStrategy(int period) {
-        return new SimpleAnimateMenuStrategy(this, period);
     }
 
 }
