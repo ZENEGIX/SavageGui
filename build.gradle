@@ -25,12 +25,12 @@ allprojects { project ->
     }
 
     group 'ru.zenegix.menu'
-    version '1.4.1-SNAPSHOT'
+    version '1.5-SNAPSHOT'
     apply plugin: 'java'
 
     sourceCompatibility = 1.8
 
-    if (project.name == "core" || project.name == "seamless-opening") {
+    if (project.name == "core" || project.name == "seamless-opening" || project.name == "animation") {
         apply plugin: "maven-publish"
 
         publishing {
