@@ -1,4 +1,4 @@
 dependencies {
     compileOnly files("lib/Paper-1.12.2-b1574.jar", "lib/PaperSpigot-1.8.8.jar")
-    compile project(':core')
+    compileOnly project(':core')
 }
