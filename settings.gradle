@@ -3,4 +3,5 @@ include 'core'
 include 'bukkit'
 include 'example'
 include 'seamless-opening'
+include 'animation'
 
