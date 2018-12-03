@@ -34,4 +34,6 @@ public interface MenuSession extends InventoryHolder, Updatable {
 
     boolean update(int index);
 
+    void moveItem(int from, int to);
+
 }

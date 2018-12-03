@@ -109,6 +109,14 @@ public class SimpleMenuSession implements MenuSession {
     }
 
     @Override
+    public void moveItem(int from, int to) {
+        this.getItemByIndex(from).ifPresent(item -> {
+            this.items.remove(from);
+            this.items.put(to, item);
+        });
+    }
+
+    @Override
     public boolean update() {
         if (this.inventory == null) {
             return false;
