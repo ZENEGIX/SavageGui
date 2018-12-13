@@ -22,14 +22,14 @@ A powerful menu api for bukkit
     <dependency>
         <groupId>ru.zenegix.menu</groupId>
         <artifactId>core</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.5-SNAPSHOT</version>
     </dependency>
   
    <!-- Seamless opening. Optional -->
     <dependency>
         <groupId>ru.zenegix.menu</groupId>
         <artifactId>seamless-opening</artifactId>
-        <version>1.3-SNAPSHOT</version>
+        <version>1.5-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
@@ -42,8 +42,8 @@ repositories {
 }
 
 dependencies {
-    compile 'ru.zenegix.menu:core:1.3-SNAPSHOT'
-    compile 'ru.zenegix.menu:seamless-opening:1.3-SNAPSHOT' // Optional
+    compile 'ru.zenegix.menu:core:1.5-SNAPSHOT'
+    compile 'ru.zenegix.menu:seamless-opening:1.5-SNAPSHOT' // Optional
 }
 ```
 
