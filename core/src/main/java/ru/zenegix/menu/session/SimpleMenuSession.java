@@ -2,7 +2,11 @@ package ru.zenegix.menu.session;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
+import ru.zenegix.menu.MenuManager;
 import ru.zenegix.menu.item.MenuItem;
+import ru.zenegix.menu.predicate.NotNeedCloseMenuPredicate;
 import ru.zenegix.menu.processor.MenuOpenProcessor;
 import ru.zenegix.menu.processor.OpenProcessorResponse;
 import ru.zenegix.menu.template.MenuTemplate;
@@ -14,6 +18,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class SimpleMenuSession implements MenuSession {
+
+    private final NotNeedCloseMenuPredicate notNeedCloseMenuPredicate;
 
     private final Player owner;
 
@@ -27,7 +33,8 @@ public class SimpleMenuSession implements MenuSession {
 
     private Map<Integer, MenuItem> items;
 
-    public SimpleMenuSession(Player owner, MenuOpenProcessor openProcessor) {
+    SimpleMenuSession(NotNeedCloseMenuPredicate notNeedCloseMenuPredicate, Player owner, MenuOpenProcessor openProcessor) {
+        this.notNeedCloseMenuPredicate = notNeedCloseMenuPredicate;
         this.owner = owner;
         this.openProcessor = openProcessor;
     }
@@ -72,6 +79,8 @@ public class SimpleMenuSession implements MenuSession {
             return false;
         }
 
+        this.notNeedCloseMenuPredicate.setNotNeedCloseMenu(this.owner);
+
         this.activeTemplate = menuTemplate;
         this.activeWindow = optionalMenuWindow.get();
 
@@ -79,6 +88,8 @@ public class SimpleMenuSession implements MenuSession {
 
         this.inventory = response.getInventory();
         this.items = response.getItems();
+        this.activeWindow.getOpenHandler().accept(this);
+        this.notNeedCloseMenuPredicate.removeNotNeedCloseMenu(this.owner);
 
         return true;
     }

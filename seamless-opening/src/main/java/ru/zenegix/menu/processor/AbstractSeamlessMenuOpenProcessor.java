@@ -2,17 +2,9 @@ package ru.zenegix.menu.processor;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
 import ru.zenegix.menu.session.MenuSession;
 
 public abstract class AbstractSeamlessMenuOpenProcessor extends AbstractMenuOpenProcessor {
-
-    private final Plugin plugin;
-
-    public AbstractSeamlessMenuOpenProcessor(Plugin plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public OpenProcessorResponse open(MenuSession menuSession) {
@@ -32,10 +24,6 @@ public abstract class AbstractSeamlessMenuOpenProcessor extends AbstractMenuOpen
         OpenProcessorResponse response = this.fill(menuSession, toOpen);
 
         if (needSeamless) {
-            Player player = menuSession.getOwner();
-
-            player.setMetadata("seamless-opening", new FixedMetadataValue(this.plugin, true));
-
             this.openSeamless(menuSession.getOwner(), toOpen);
         } else {
             menuSession.getOwner().openInventory(response.getInventory());

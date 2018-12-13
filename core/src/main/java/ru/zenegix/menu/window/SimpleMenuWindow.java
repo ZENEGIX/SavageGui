@@ -9,6 +9,7 @@ import ru.zenegix.menu.type.MenuType;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class SimpleMenuWindow implements MenuWindow {
@@ -23,13 +24,16 @@ public class SimpleMenuWindow implements MenuWindow {
 
     private final List<MenuItem> items;
 
+    private final Consumer<MenuSession> openHandler;
+
     protected SimpleMenuWindow(MenuSessionResolver menuSessionResolver, MenuTitle title, MenuType menuType,
-                               Predicate<MenuSession> canViewChecker, List<MenuItem> items) {
+                               Predicate<MenuSession> canViewChecker, Consumer<MenuSession> openHandler, List<MenuItem> items) {
         this.menuSessionResolver = menuSessionResolver;
         this.title = title;
         this.menuType = menuType;
         this.canViewChecker = canViewChecker;
         this.items = items;
+        this.openHandler = openHandler;
     }
 
     @Override
@@ -45,6 +49,11 @@ public class SimpleMenuWindow implements MenuWindow {
     @Override
     public List<MenuItem> getItems() {
         return this.items;
+    }
+
+    @Override
+    public Consumer<MenuSession> getOpenHandler() {
+        return this.openHandler;
     }
 
     @Override

@@ -9,13 +9,13 @@ public class SeamlessMenuOpenProcessorFactory {
 
     private static AbstractSeamlessMenuOpenProcessor currentVersion;
 
-    public static AbstractSeamlessMenuOpenProcessor get(Plugin plugin) {
+    public static AbstractSeamlessMenuOpenProcessor get() {
         return currentVersion == null
-                ? currentVersion = lazyInit(plugin)
+                ? currentVersion = lazyInit()
                 : currentVersion;
     }
 
-    private static AbstractSeamlessMenuOpenProcessor lazyInit(Plugin plugin) {
+    private static AbstractSeamlessMenuOpenProcessor lazyInit() {
         try {
             Constructor<?> constructor;
             String name = Bukkit.getServer().getClass().getPackage().getName();
@@ -23,20 +23,20 @@ public class SeamlessMenuOpenProcessorFactory {
 
             switch (intVersion) {
                 case 12: {
-                    constructor = ru.zenegix.menu.processor.v1_12.SeamlessMenuOpenProcessor.class.getConstructor(Plugin.class);
+                    constructor = ru.zenegix.menu.processor.v1_12.SeamlessMenuOpenProcessor.class.getConstructor();
                     break;
                 }
                 case 8: {
-                    constructor = ru.zenegix.menu.processor.v1_8.SeamlessMenuOpenProcessor.class.getConstructor(Plugin.class);
+                    constructor = ru.zenegix.menu.processor.v1_8.SeamlessMenuOpenProcessor.class.getConstructor();
                     break;
                 }
                 default: {
-                    constructor = UnsupportSeamlessMenuOpenProcessor.class.getConstructor(Plugin.class);
+                    constructor = UnsupportSeamlessMenuOpenProcessor.class.getConstructor();
                     break;
                 }
             }
 
-            return (AbstractSeamlessMenuOpenProcessor) constructor.newInstance(plugin);
+            return (AbstractSeamlessMenuOpenProcessor) constructor.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

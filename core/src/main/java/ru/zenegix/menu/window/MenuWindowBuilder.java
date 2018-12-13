@@ -12,6 +12,7 @@ import ru.zenegix.menu.type.MenuType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -26,6 +27,8 @@ public class MenuWindowBuilder {
     private Predicate<MenuSession> canViewChecker = (menuSession -> true);
 
     private List<MenuItem> items = new ArrayList<>();
+
+    private Consumer<MenuSession> openHandler = (menuSession -> {});
 
     public MenuWindowBuilder(MenuSessionResolver menuSessionResolver) {
         this.menuSessionResolver = menuSessionResolver;
@@ -69,6 +72,12 @@ public class MenuWindowBuilder {
         return this;
     }
 
+    public MenuWindowBuilder withOpenHandler(Consumer<MenuSession> openHandler) {
+        this.openHandler = openHandler;
+
+        return this;
+    }
+
     public MenuWindowBuilder setItems(List<MenuItem> items) {
         this.items = items;
 
@@ -103,6 +112,7 @@ public class MenuWindowBuilder {
                 this.title,
                 this.type,
                 this.canViewChecker,
+                this.openHandler,
                 this.items
         );
     }

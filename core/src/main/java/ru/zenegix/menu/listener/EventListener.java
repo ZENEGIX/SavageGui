@@ -7,7 +7,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.InventoryHolder;
+import ru.zenegix.menu.MenuManager;
 import ru.zenegix.menu.item.MenuItemClick;
+import ru.zenegix.menu.predicate.NotNeedCloseMenuPredicate;
 import ru.zenegix.menu.session.MenuSession;
 import ru.zenegix.menu.session.MenuSessionResolver;
 
@@ -15,8 +17,11 @@ public class EventListener implements Listener {
 
     private final MenuSessionResolver sessionResolver;
 
-    public EventListener(MenuSessionResolver sessionResolver) {
+    private final NotNeedCloseMenuPredicate notNeedCloseMenuPredicate;
+
+    public EventListener(MenuSessionResolver sessionResolver, NotNeedCloseMenuPredicate notNeedCloseMenuPredicate) {
         this.sessionResolver = sessionResolver;
+        this.notNeedCloseMenuPredicate = notNeedCloseMenuPredicate;
     }
 
     @EventHandler
@@ -59,7 +64,7 @@ public class EventListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
-        if (!player.hasMetadata("seamless-opening")) {
+        if (!this.notNeedCloseMenuPredicate.isNotNeedCloseMenu(player)) {
             this.sessionResolver.getSessionByPlayer(player).close();
         }
     }

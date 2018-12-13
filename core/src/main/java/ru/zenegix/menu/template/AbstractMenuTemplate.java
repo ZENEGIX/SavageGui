@@ -8,6 +8,7 @@ import ru.zenegix.menu.window.MenuWindow;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public abstract class AbstractMenuTemplate implements MenuTemplate {
 
@@ -39,6 +40,11 @@ public abstract class AbstractMenuTemplate implements MenuTemplate {
     @Override
     public boolean update() {
         return this.getRootWindow().update();
+    }
+
+    @Override
+    public Consumer<MenuSession> getOpenHandler() {
+        return this.getRootWindow().getOpenHandler();
     }
 
     public abstract MenuWindow getRootWindow();
