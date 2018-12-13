@@ -25,10 +25,20 @@ allprojects { project ->
     }
 
     group 'ru.zenegix.menu'
-    version '1.5-SNAPSHOT'
+    version '1.6-SNAPSHOT'
     apply plugin: 'java'
 
     sourceCompatibility = 1.8
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        classifier = 'sources'
+    }
+
+    task javadocJar(type: Jar) {
+        from javadoc
+        classifier = 'javadoc'
+    }
 
     if (project.name == "core" || project.name == "seamless-opening" || project.name == "animation") {
         apply plugin: "maven-publish"
@@ -39,6 +49,8 @@ allprojects { project ->
                     groupId project.group
                     artifactId project.name.toLowerCase()
                     version project.version
+                    artifact sourcesJar
+                    artifact javadocJar
                     from components.java
                 }
             }
